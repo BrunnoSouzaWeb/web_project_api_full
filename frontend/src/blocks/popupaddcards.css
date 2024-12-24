@@ -1,0 +1,154 @@
+#popup__card {
+  display: none;
+}
+
+.popup__card-form {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  width: 430px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  top: 23%;
+  left: 33%;
+}
+
+.popup__card-button-closed {
+  top: -35px;
+  right: -35px;
+  cursor: pointer;
+  position: absolute;
+}
+
+.popup__card-button-closed:hover {
+  opacity: 50%;
+}
+
+.popup__card-header {
+  font-size: 24px;
+  line-height: 29.05px;
+  font-weight: 900;
+  margin: 34px 0 0 36px;
+}
+
+.popup__card-title {
+  max-width: 358px;
+  border: none;
+  border-bottom: 1px solid #000000;
+  font-size: 14px;
+  line-height: 16.94px;
+  font-weight: 400;
+  padding: 0px 0 10px;
+  margin: 54px 0 0 36px;
+}
+
+.popup__card-url {
+  max-width: 358px;
+  border: none;
+  border-bottom: 1px solid #000000;
+  padding: 0px 0 10px;
+  font-size: 14px;
+  line-height: 16.94px;
+  font-weight: 400;
+  margin: 30px 0 0 36px;
+}
+
+.popup__card-button-create {
+  font-size: 18px;
+  line-height: 21.78px;
+  font-weight: 400;
+  background-color: black;
+  color: #ffffff;
+  max-width: 358px;
+  margin: 48px 36px 36px;
+  padding: 15px 0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.popup__card-button-create:hover {
+  opacity: 80%;
+}
+
+.popup__button_disabled {
+  font-size: 18px;
+  line-height: 21.78px;
+  font-weight: 400;
+  background-color: #ffffff;
+  color: #000000;
+  opacity: 20%;
+  pointer-events: none;
+}
+
+.popup__overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgb(0, 0, 0, 0.5);
+}
+
+.popup__open {
+  display: flex;
+}
+
+@media screen and (max-width: 880px) {
+  .popup__card-form {
+    top: 18%;
+    left: 27%;
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .popup__card-form {
+    top: 19%;
+    left: 20%;
+  }
+
+  .popup__card_button-closed {
+    top: -40px;
+    right: -1px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .popup__card-form {
+    max-width: 282px;
+    top: 20%;
+    left: 22%;
+  }
+
+  .popup__card-title {
+    max-width: 206px;
+  }
+
+  .popup__card-url {
+    max-width: 206px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .popup__card-form {
+    top: 20%;
+    left: 6%;
+  }
+
+  .popup__card_button-closed {
+    max-width: 26px;
+    top: -40px;
+    right: -1px;
+  }
+
+  .popup__card-header {
+    font-size: 18px;
+    line-height: 21.78px;
+    font-weight: 900;
+  }
+
+  .popup__button-create {
+    font-size: 14px;
+    line-height: 16.94px;
+    font-weight: 400;
+  }
+}

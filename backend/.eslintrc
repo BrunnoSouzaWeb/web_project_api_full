@@ -1,0 +1,30 @@
+{
+  "extends": "airbnb-base",
+  "parser": "@babel/eslint-parser",
+  "rules": {
+    "no-console": "off",
+    "import/extensions": ["off", "always", { "ignorePackages": true }],
+    "import/no-named-as-default": "off",
+    "import/no-named-as-default-member": "off",
+    "no-underscore-dangle": "off",
+    "quotes": ["error", "double"],
+    "comma-dangle": "off",
+    "operator-linebreak": "off",
+    "no-restricted-syntax": [
+      "off", // Desativa a regra para qualquer tipo de sintaxe restrita
+      {
+        "selector": "ForInStatement",
+        "message": "for..in loops are allowed"
+      }
+    ],
+    "guard-for-in": "off" // Desativa a exigência de verificação no corpo do for..in
+  },
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module",
+    "babelOptions": {
+      "plugins": ["@babel/plugin-syntax-import-assertions"]
+    },
+    "requireConfigFile": false
+  }
+}

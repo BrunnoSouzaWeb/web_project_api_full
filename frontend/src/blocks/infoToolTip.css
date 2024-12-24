@@ -1,0 +1,82 @@
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal_open {
+  display: block;
+}
+
+.modal__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  padding: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.modal__close-icon {
+  cursor: pointer;
+  transition: 0.2s;
+  width: 40px;
+  height: 40px;
+  background-color: black;
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  border: 0;
+}
+
+.modal__close-icon-img {
+  margin: 0 auto;
+  opacity: 100%;
+}
+
+.popup__close-icon-img {
+  margin: 0 auto;
+  opacity: 100%;
+}
+.modal__close-icon-img:hover {
+  opacity: 60%;
+  transition: 0.2s;
+}
+
+.modal__message {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 10px;
+  font-weight: 900;
+}
+
+.modal__message_success {
+  color: black;
+}
+
+.modal__message_error {
+  color: black;
+}
+
+.modal__icon {
+  width: 120px;
+  height: 120px;
+  margin-top: 40px;
+}
+
+.modal__icon_success {
+  background-image: url(/src/images/sucesso.png);
+}
+
+.modal__icon_error {
+  background-image: url(/src/images/erro.png);
+}

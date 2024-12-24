@@ -1,0 +1,78 @@
+.register {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Inter;
+  color: #fff;
+  margin-top: 60px;
+}
+
+.register__welcome {
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: 900;
+}
+
+.register__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 360px;
+}
+
+.register__input {
+  width: 100%;
+  padding: 8px;
+  padding-top: 20px; 
+  padding-left: 0;
+  border: none;
+  border-bottom: 1px solid #fff;
+  background-color: transparent;
+  color: #fff;
+  font-size: 14px;
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+
+.register__input:focus {
+  outline: none; 
+}
+
+.register__button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 216px;
+}
+
+.register__button {
+  width: 360px;
+  background-color: white;
+  color: black;
+  padding: 10px 20px;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.register__button:hover {
+  background-color: #e0e0e0;
+}
+
+.register__signin {
+  margin: 0;
+  color: white;
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: 15px;
+}
+
+.link {
+  color: white; 
+  text-decoration: none; 
+}
+
+.link:hover {
+  color: #ccc;
+}
