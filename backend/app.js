@@ -17,12 +17,14 @@ mongoose.connect("mongodb://localhost:27017/aroundb", {
 });
 
 // Middleware de autenticação temporária
+/*
 app.use((req, res, next) => {
   req.user = {
     _id: "67491beb043ddbcacdf0734d",
   };
   next();
 });
+*/
 
 app.use(usersRouter);
 app.use(cardsRouter);

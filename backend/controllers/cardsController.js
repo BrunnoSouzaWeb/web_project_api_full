@@ -25,6 +25,7 @@ export const createCard = (req, res) => {
     });
 };
 
+/*   como era antes
 export const deleteCard = (req, res) => {
   const { cardId } = req.params.cardId;
   card
@@ -37,6 +38,89 @@ export const deleteCard = (req, res) => {
       handleErrorResponse(err, res, "card");
     });
 };
+*/
+
+export const deleteCard = (req, res) => {
+  const { cardId } = req.params;
+  console.log("dentro do delete", cardId);
+
+  // Usando orFail de maneira mais simples
+  card
+    .findById(cardId)
+    .orFail(() => {
+      const error = new Error("Cartão não existe");
+      error.statusCode = 404; /// 404
+      throw error;
+    })
+    .then((cardData) => {
+      console.log("indo ver se é meu");
+      console.log(cardData);
+      console.log("dono do cartão:", cardData.owner._id);
+      console.log("meu id:", req.user);
+
+      // Verificando se o usuário tem permissão
+      if (String(cardData.owner._id) !== String(req.user._id)) {
+        const error = new Error("Sem permissão para excluir este cartão");
+        error.statusCode = 403;
+        throw error;
+      }
+
+      console.log("indo deletar");
+      // Usando o modelo `card` para deletar, não o documento
+      return card.findByIdAndDelete(cardId);
+    })
+    .then((deletedCard) => {
+      if (!deletedCard) {
+        const error = new Error("Cartão não encontrado");
+        error.statusCode = 404;
+        throw error;
+      }
+      res.send({ data: deletedCard });
+    })
+    .catch((err) => {
+      console.log("dentro do catch");
+      console.log("erro:", err);
+      handleErrorResponse(err, res, "card");
+    });
+};
+
+/*
+export const deleteCard = (req, res) => {
+  const { cardId } = req.params;
+  console.log("dentro do delete", cardId);
+  card
+    .findById(cardId)
+    .orFail(() => {
+      const error = new Error("Cartão não existe");
+      error.statusCode = 404; /// 404
+      throw error;
+    })
+    .then((cardData) => {
+      console.log("indo ver se é meu");
+      console.log(cardData);
+      console.log("dono do cartao:", cardData.owner._id);
+      console.log("meu id:", req.user);
+
+      if (String(cardData.owner._id) !== String(req.user._id))
+        if (String(cardData.owner._id) !== String(req.user._id)) {
+          const error = new Error("Sem permissão para excluir este cartão");
+          error.statusCode = 403;
+          throw error;
+        }
+
+      console.log("indo deletar");
+      return card.findByIdAndDelete(cardId);
+    })
+    .then((deletedCard) => {
+      res.send({ data: deletedCard });
+    })
+    .catch((err) => {
+      console.log("dentro do catchccc");
+      console.log("ver-", err);
+      handleErrorResponse(err, res, "card");
+    });
+};
+*/
 
 export const likeCard = (req, res) => {
   card
