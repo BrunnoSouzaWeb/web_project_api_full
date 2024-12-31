@@ -4,8 +4,13 @@ import bodyParser from "body-parser";
 import usersRouter from "./routes/usersRoute.js";
 import cardsRouter from "./routes/cardsRoute.js";
 
+import cors from "cors";
+
 const { port = 3000 } = process.env;
 const app = express();
+
+app.use(cors());
+app.options("*", cors());
 
 // Configuração do body-parser
 app.use(bodyParser.json());

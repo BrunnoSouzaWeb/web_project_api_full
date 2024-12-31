@@ -11,9 +11,9 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
 
   const [isPatching, setIsPatching] = React.useState(false);
 
-  React.useEffect(() => {
-    setLink(currentUser.avatar);
-  }, [currentUser]);
+  // React.useEffect(() => {
+  //   setLink(currentUser.avatar);
+  // }, [currentUser]);
 
   React.useEffect(() => {
     if (!isOpen) {

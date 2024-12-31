@@ -78,6 +78,8 @@ export const createUser = (req, res, next) => {
     password: Joi.string().required().min(8),
   });
 
+  console.log("dentro do create user");
+
   // Validação dos dados da requisição
   const { error, value } = schema.validate(req.body);
   if (error) {
@@ -110,6 +112,7 @@ export const createUser = (req, res, next) => {
     })
     .then((newUser) => {
       // Retornar o novo usuário criado
+      console.log("saindo  do create_use");
       res.status(201).json(newUser);
     })
     .catch(next);
@@ -197,6 +200,8 @@ export const updateUserAvatar = (req, res) => {
 };
 
 export const login = async (req, res, next) => {
+  console.log("dentro do login backend");
+
   try {
     const { email, password } = req.body;
 
@@ -227,6 +232,12 @@ export const login = async (req, res, next) => {
 
     const decoded = jwt.decode(token);
     console.log("Decoded token:", decoded);
+
+    console.log("dentro do login", token);
+
+    console.log("dentro do login", { token });
+
+    console.log("saindo do login backend");
 
     return res.status(200).json({ token });
   } catch (err) {

@@ -12,11 +12,15 @@ const Login = ({ handleLogin }) => {
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
+    console.log("dentro do login - frontend");
+
     e.preventDefault();
     auth
       .authorize(email, password)
-      .then(() => {
-        handleLogin(email);
+      .then((response) => {
+        handleLogin(response.email, response.token);
+        console.log(response.email);
+        console.log(response.token);
         navigate("/");
       })
       .catch((error) => {

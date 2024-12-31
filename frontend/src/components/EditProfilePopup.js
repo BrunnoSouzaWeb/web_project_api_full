@@ -7,6 +7,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [isPatching, setIsPatching] = React.useState(false);
+  const [isValid, setIsValid] = useState(false);
 
   function handleChangeName(e) {
     setName(e.target.value);
@@ -18,10 +19,23 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
 
   const currentUser = useContext(CurrentUserContext);
 
+  //React.useEffect(() => {
+  //  setName(currentUser.name);
+  //  setDescription(currentUser.about);
+  //}, [currentUser]);
+
   React.useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
-  }, [currentUser]);
+    if (
+      name?.length >= 2 &&
+      name?.length <= 40 &&
+      description?.length >= 2 &&
+      description?.length <= 200
+    ) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
+  }, [name, description]);
 
   React.useEffect(() => {
     if (!isOpen) {

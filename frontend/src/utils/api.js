@@ -4,9 +4,29 @@ class Api {
     this._headers = data.headers;
   }
 
+  _getAuthorizationHeaders() {
+    return {
+      ...this._headers,
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    };
+  }
+
+  /*
+  _updateHeaders(token) {
+    if (token) {
+      this._headers.Authorization = `Bearer ${token}`;
+    }
+  }
+
+  setToken(token) {
+    this._updateHeaders(token); // Atualiza os cabeçalhos dinamicamente
+  }
+    */
+
   getUserInfo() {
+    console.log("getinfo", this._headers);
     return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers,
+      headers: this._getAuthorizationHeaders(),
     })
       .then((res) => {
         if (res.ok) {
@@ -22,9 +42,10 @@ class Api {
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
-      headers: this._headers,
+      headers: this._getAuthorizationHeaders(),
     })
       .then((res) => {
+        console.log("resposta card", res);
         if (res.ok) {
           return res.json();
         }
@@ -36,10 +57,25 @@ class Api {
       });
   }
 
+  /*
+
+  getUserInfo() {
+    return fetch(`${this._baseUrl}/users/me`, {
+      headers: this._headers,
+    }).then(this._handleResponse);
+  }
+
+  getInitialCards() {
+    return fetch(`${this._baseUrl}/cards`, {
+      headers: this._headers,
+    }).then(this._handleResponse);
+  }
+    */
+
   updateEditPerfil(name, about) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
-      headers: this._headers,
+      headers: this._getAuthorizationHeaders(),
       body: JSON.stringify({ name, about }),
     })
       .then((res) => {
@@ -57,7 +93,7 @@ class Api {
   addNewCard(name, link) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
-      headers: this._headers,
+      headers: this._getAuthorizationHeaders(),
       body: JSON.stringify({ name, link }),
     })
       .then((res) => {
@@ -75,7 +111,7 @@ class Api {
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
-      headers: this._headers,
+      headers: this._getAuthorizationHeaders(),
     })
       .then((res) => {
         if (res.ok) {
@@ -91,7 +127,7 @@ class Api {
   likeCard(cardId) {
     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: "PUT",
-      headers: this._headers,
+      headers: this._getAuthorizationHeaders(),
     })
       .then((res) => {
         if (res.ok) {
@@ -107,7 +143,7 @@ class Api {
   dislikeCard(cardId) {
     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: "DELETE",
-      headers: this._headers,
+      headers: this._getAuthorizationHeaders(),
     })
       .then((res) => {
         if (res.ok) {
@@ -123,7 +159,7 @@ class Api {
   updateAvatar(avatar) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
-      headers: this._headers,
+      headers: this._getAuthorizationHeaders(),
       body: JSON.stringify({
         avatar,
       }),
@@ -143,7 +179,7 @@ class Api {
   changeLikeCardStatus(cardId, isLiked) {
     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: isLiked ? "PUT" : "DELETE",
-      headers: this._headers,
+      headers: this._getAuthorizationHeaders(),
     })
       .then((res) => {
         if (res.ok) {
@@ -159,9 +195,13 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: "https://around.nomoreparties.co/v1/web-ptbr-cohort-12",
+  //baseUrl: "https://around.nomoreparties.co/v1/web-ptbr-cohort-12",
+  baseUrl: "http://localhost:3000",
   headers: {
-    authorization: "1f012d49-8fd6-43fa-aeaf-50158ed3cf4a",
+    //authorization: "1f012d49-8fd6-43fa-aeaf-50158ed3cf4a",
+    //authorization:
+    //  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzZlMjM5ZmVlZDY2NTk0MWYxODRmNTQiLCJpYXQiOjE3MzUyNzE0NzUsImV4cCI6MTczNTg3NjI3NX0.0QFMWubrtg7NxLwB-vDFCdBm_8qSATW5zxDG__O_KKE",
+    ///  Authorization: `Bearer ${localStorage.getItem("jwt")}`,
     "Content-Type": "application/json",
   },
 });

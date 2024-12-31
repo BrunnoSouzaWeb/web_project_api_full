@@ -20,6 +20,8 @@ export default function Main({
   onCardLike,
   onCardDelete,
 }) {
+  console.log(cards);
+
   const currentUser = useContext(CurrentUserContext);
   if (!currentUser) return null;
 
@@ -55,7 +57,7 @@ export default function Main({
 
       <section className="elements" />
       <template className="elements">
-        {cards.map((card) => (
+        {cards?.map((card) => (
           <Card
             key={card._id}
             card={card}

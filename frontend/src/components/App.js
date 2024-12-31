@@ -35,6 +35,13 @@ function App() {
     localStorage.getItem("userEmail") || ""
   );
 
+  console.log("dentro do app frontend");
+
+  const [token, setToken] = useState(localStorage.getItem("jwt") || ""); // NOVO: Estado para armazenar o token
+  //// console.log("token", setToken);
+  ///const settoken = "1f012d49-8fd6-43fa-aeaf-50158ed3cf4a";
+  console.log("Token atual:", token);
+
   const onEditProfileClick = () => {
     setIsEditProfilePopupOpen(true);
   };
@@ -88,7 +95,10 @@ function App() {
     setSelectedCard(null);
   };
 
+  /*
+  
   useEffect(() => {
+    console.log("primeiro api getuserifo");
     api
       .getUserInfo()
       .then((ApiUserInfo) => {
@@ -98,22 +108,36 @@ function App() {
         console.log("Erro ao carregar dados do usuário: ", err);
       });
   }, []);
-
-  useEffect(() => {
-    api
-      .getInitialCards()
-      .then(setCards)
-      .catch((err) => console.log("Erro ao obter dados dos cartões :", err));
-  }, []);
+  */
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
     if (token) {
       auth
         .checkToken(token)
-        .then(() => {
+        .then((user) => {
           setLoggedIn(true);
-          setUserEmail(localStorage.getItem("userEmail"));
+          setUserEmail(user.email);
+          setCurrentUser(user);
+
+          console.log("executou api getuserifo");
+          api
+            .getUserInfo()
+            .then(setCurrentUser(user))
+            .catch((err) => {
+              console.log("Erro ao carregar dados do usuário: ", err);
+            });
+
+          console.log("executou cards");
+          api
+            .getInitialCards()
+            .then((data) => {
+              console.log("data", data);
+              setCards(data);
+            })
+            .catch((err) =>
+              console.log("Erro ao obter dados dos cartões :", err)
+            );
         })
         .catch((error) => {
           console.error("Erro ao verificar token:", error);
@@ -122,11 +146,47 @@ function App() {
     } else {
       setLoggedIn(false);
     }
-  }, []);
+  }, [token]); // Atualiza quando o token muda
 
-  const handleLogin = (email) => {
+  /*
+
+  useEffect(() => {
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      auth
+        .checkToken(token)
+        .then((user) => {
+          setLoggedIn(true);
+          setUserEmail(user.email);
+          setCurrentUser(user);
+
+          console.log("executou cards");
+          api
+            .getInitialCards()
+            .then((data) => {
+              console.log("data", data);
+              setCards(data);
+            })
+            .catch((err) =>
+              console.log("Erro ao obter dados dos cartões :", err)
+            );
+        })
+        .catch((error) => {
+          console.error("Erro ao verificar token:", error);
+          setLoggedIn(false);
+        });
+    } else {
+      setLoggedIn(false);
+    }
+  }, [token]); // Atualiza quando o token muda
+  */
+
+  const handleLogin = (email, jwt) => {
+    console.log("dentro do handlelogin frontend app", jwt);
     setLoggedIn(true);
     setUserEmail(email);
+    setToken(jwt); // Atualiza o estado do token
+    localStorage.setItem("jwt", jwt);
     localStorage.setItem("loggedIn", "true");
     localStorage.setItem("userEmail", email);
   };
@@ -134,6 +194,8 @@ function App() {
   const handleLogout = () => {
     setLoggedIn(false);
     setUserEmail("");
+    setToken(""); // Limpa o token
+    localStorage.removeItem("jwt");
     localStorage.removeItem("loggedIn");
     localStorage.removeItem("userEmail");
   };
