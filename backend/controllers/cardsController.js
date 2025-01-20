@@ -3,7 +3,7 @@ import { handleErrorResponse } from "../utils/errorHandler.js";
 
 export const listAllCards = (req, res) => {
   card
-    .find()
+    .find({ invalidField: "value" })
     .then((cards) => {
       res.status(200).json(cards);
     })
@@ -123,6 +123,9 @@ export const deleteCard = (req, res) => {
 */
 
 export const likeCard = (req, res) => {
+  console.log("este aqui");
+  console.log(req.params);
+
   card
     .findByIdAndUpdate(
       req.params.cardId,
@@ -139,6 +142,9 @@ export const likeCard = (req, res) => {
 };
 
 export const dislikeCard = (req, res) => {
+  console.log("este aqui dislikecard");
+  console.log(req.params);
+
   card
     .findByIdAndUpdate(
       req.params.cardId,

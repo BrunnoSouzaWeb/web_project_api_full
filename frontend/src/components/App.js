@@ -201,7 +201,19 @@ function App() {
   };
 
   async function handleCardLike(card) {
-    const isLiked = card.likes.some((user) => user._id === currentUser._id);
+    console.log("dentro do handleCardLike");
+    console.log("currentUser._id", currentUser._id);
+    console.log("card", card);
+    console.log("card.owner", card.owner);
+
+    console.log("cartão idddd", card._id);
+    console.log("cartão likeeeee", card.likes);
+
+    /////const isLiked = card.likes.some((user) => user._id === currentUser._id);
+
+    const isLiked = card.likes.some((user) => user === currentUser._id);
+
+    console.log("isliked", isLiked);
 
     await api
       .changeLikeCardStatus(card._id, !isLiked)

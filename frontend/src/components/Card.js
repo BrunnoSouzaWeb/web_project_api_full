@@ -5,16 +5,23 @@ import { useContext } from "react";
 import CurrentUserContext from "../contexts/CurrentUserContext.js";
 
 export default function Card({ card, onCardClick, onCardLike, onCardDelete }) {
+  console.log("dentro do card.js");
+  console.log("card", card);
+
   const { link, likes, name, owner } = card;
   const currentUser = useContext(CurrentUserContext);
 
-  const isOwn = owner._id === currentUser._id;
+  const isOwn = owner === currentUser._id;
 
   const cardDeleteButtonClassName = `elements__image-trash ${
     isOwn ? "element__button_trash_visible" : "element__button_trash_hidden"
   }`;
 
-  const isLiked = likes.some((user) => user._id === currentUser._id);
+  const isLiked = likes.some((user) => user === currentUser._id);
+
+  console.log("cartão id", card._id);
+  console.log("cartão like", card.likes);
+  console.log("aqui", isLiked);
 
   const cardLikeButtonClassName = `elements__image-like ${
     isLiked ? "elements__image-like_active" : ""

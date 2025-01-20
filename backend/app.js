@@ -34,6 +34,8 @@ app.use((req, res, next) => {
 app.use(usersRouter);
 app.use(cardsRouter);
 
+/*
+
 // rotas inexistentes
 app.use((req, res) => {
   res.status(404).json({ message: "A solicitação não foi encontrada" });
@@ -43,6 +45,17 @@ app.use((req, res) => {
 app.use((err, res) => {
   console.error("Erro no servidor:", err.stack); // Loga o erro no console
   res.status(500).json({ message: "Ocorreu um erro no servidor" });
+});
+
+*/
+
+app.use((err, req, res, next) => {
+  // se um erro não tiver status, exibir 500
+  const { statusCode = 500, message } = err || {};
+  res.status(statusCode).send({
+    // verifique o status e exiba uma mensagem baseada nele
+    message: statusCode === 500 ? "Ocorreu um erro no servidor" : message,
+  });
 });
 
 // Inicia o servidor

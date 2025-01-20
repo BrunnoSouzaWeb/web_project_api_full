@@ -10,10 +10,18 @@ const errorMap = {
 };
 
 export const handleErrorResponse = (err, res, entity = "Recurso") => {
+  console.log("dentro do errorhandler");
+  console.log("ver-", err);
+  console.log("ver-", err.name);
+  console.log("ver-", err.statusCode);
   const errorConfig = errorMap[err.name] || {
     status: 500,
     message: () => "Erro interno do servidor.",
   };
+
+  console.log("errorConfig", errorConfig);
+  console.log("errorConfig.message", errorConfig.message);
+  console.log("typeof errorConfig.message", typeof errorConfig.message);
 
   const message =
     typeof errorConfig.message === "function"
