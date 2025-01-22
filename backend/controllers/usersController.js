@@ -1,4 +1,4 @@
-import Joi from "joi";
+////import { celebrate, Joi } from "celebrate";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import user from "../models/user.js";
@@ -69,6 +69,7 @@ export const createUser = (req, res, next) => {
 };
 */
 
+/*
 export const createUser = (req, res, next) => {
   const schema = Joi.object({
     name: Joi.string().optional().min(2).max(30),
@@ -77,16 +78,21 @@ export const createUser = (req, res, next) => {
     email: Joi.string().email().required(),
     password: Joi.string().required().min(8),
   });
+  */
 
-  console.log("dentro do create user");
-
-  // Validação dos dados da requisição
+// Validação dos dados da requisição
+/*
   const { error, value } = schema.validate(req.body);
   if (error) {
     return res.status(400).json({ error: error.details });
   }
+*/
 
-  const { name, about, avatar, email, password } = value;
+export const createUser = (req, res, next) => {
+  console.log("Dados validados:", req.body);
+  console.log("dentro do create user");
+
+  const { name, about, avatar, email, password } = req.body; // Pegue os dados validados do corpo da requisição
 
   // Verificar se o email já está registrado
   user

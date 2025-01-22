@@ -1,9 +1,11 @@
 import card from "../models/card.js";
 import { handleErrorResponse } from "../utils/errorHandler.js";
 
+//.find({ invalidField: "value" })
+
 export const listAllCards = (req, res) => {
   card
-    .find({ invalidField: "value" })
+    .find()
     .then((cards) => {
       res.status(200).json(cards);
     })
