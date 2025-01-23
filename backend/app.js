@@ -10,6 +10,8 @@ import { requestLogger, errorLogger } from "./middleware/logger.js";
 import cors from "cors";
 
 ///require("dotenv").config();
+//import dotenv from 'dotenv';
+//dotenv.config();
 
 const { port = 3000 } = process.env;
 const app = express();

@@ -54,6 +54,7 @@ function App() {
     api
       .updateEditPerfil(name, about)
       .then((updatedUserData) => {
+        console.log("checando", updatedUserData);
         setCurrentUser(updatedUserData);
         closeAllPopups();
       })

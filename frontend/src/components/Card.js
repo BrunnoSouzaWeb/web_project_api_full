@@ -5,8 +5,8 @@ import { useContext } from "react";
 import CurrentUserContext from "../contexts/CurrentUserContext.js";
 
 export default function Card({ card, onCardClick, onCardLike, onCardDelete }) {
-  console.log("dentro do card.js");
-  console.log("card", card);
+  //console.log("dentro do card.js");
+  //console.log("card", card);
 
   const { link, likes, name, owner } = card;
   const currentUser = useContext(CurrentUserContext);
@@ -19,9 +19,9 @@ export default function Card({ card, onCardClick, onCardLike, onCardDelete }) {
 
   const isLiked = likes.some((user) => user === currentUser._id);
 
-  console.log("cartão id", card._id);
-  console.log("cartão like", card.likes);
-  console.log("aqui", isLiked);
+  //console.log("cartão id", card._id);
+  // console.log("cartão like", card.likes);
+  //console.log("aqui", isLiked);
 
   const cardLikeButtonClassName = `elements__image-like ${
     isLiked ? "elements__image-like_active" : ""

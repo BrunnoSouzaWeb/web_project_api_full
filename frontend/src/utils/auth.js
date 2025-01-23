@@ -26,9 +26,9 @@ export const register = async (email, password) => {
 };
 
 export const authorize = async (email, password) => {
-  console.log("dentro do autorize frontend auth");
-  console.log(email);
-  console.log(password);
+  //console.log("dentro do autorize frontend auth");
+  //console.log(email);
+  //console.log(password);
   try {
     const response = await fetch(`${BASE_URL}/signin`, {
       method: "POST",
@@ -48,8 +48,8 @@ export const authorize = async (email, password) => {
 
     const { token } = await response.json();
 
-    console.log("dentro222 do autorize frontend auth");
-    console.log({ token, email });
+    //console.log("dentro222 do autorize frontend auth");
+    //console.log({ token, email });
 
     return { token, email }; // Retorna token e email
   } catch (error) {

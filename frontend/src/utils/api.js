@@ -85,6 +85,7 @@ class Api {
 
         return Promise.reject(`Error: ${res.status}`);
       })
+      .then((res) => res.data)
       .catch((err) => {
         console.log(err);
       });
@@ -171,6 +172,7 @@ class Api {
 
         return Promise.reject(`Error: ${res.status}`);
       })
+      .then((res) => res.data)
       .catch((err) => {
         console.log(err);
       });
