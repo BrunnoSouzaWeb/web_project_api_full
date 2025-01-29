@@ -1,21 +1,41 @@
 import card from "../models/card.js";
-import { handleErrorResponse } from "../utils/errorHandler.js";
+//import { handleErrorResponse } from "../utils/errorHandler.js";
 
 //.find({ invalidField: "value" })
 
-export const listAllCards = (req, res) => {
+export const listAllCards = (req, res, next) => {
+  console.log("dentro do listallcards");
   card
     .find()
     .then((cards) => {
+      console.log("dentro do then listallcards");
+      console.log(cards);
+      console.log("dentro do thennnn listallcards");
       res.status(200).json(cards);
     })
     .catch((err) => {
-      handleErrorResponse(err, res, "card");
+      console.log("catch erro");
+      console.log(err.statusCode);
+      console.log(err);
+      console.log("indo para o next");
+
+      next(err);
     });
 };
 
-export const createCard = (req, res) => {
+export const createCard = (req, res, next) => {
   const { name, link } = req.body;
+
+  console.log("criando card", name);
+  console.log("criando card", link);
+  console.log("criando card", req.user._id);
+
+  if (!name || !link || !req.user._id) {
+    const error = new Error("Dados inválidos");
+    error.statusCode = 400;
+    throw error;
+    // return res.status(400).send({ message: "Dados inválidos" });
+  }
 
   card
     .create({ name, link, owner: req.user._id })
@@ -23,7 +43,12 @@ export const createCard = (req, res) => {
       res.status(201).json(newCard);
     })
     .catch((err) => {
-      handleErrorResponse(err, res, "card");
+      console.log("catch erro");
+      console.log(err.statusCode);
+      console.log(err);
+      console.log("indo para o next");
+
+      next(err);
     });
 };
 
@@ -42,7 +67,7 @@ export const deleteCard = (req, res) => {
 };
 */
 
-export const deleteCard = (req, res) => {
+export const deleteCard = (req, res, next) => {
   const { cardId } = req.params;
   console.log("dentro do delete", cardId);
 
@@ -80,9 +105,12 @@ export const deleteCard = (req, res) => {
       res.send({ data: deletedCard });
     })
     .catch((err) => {
-      console.log("dentro do catch");
-      console.log("erro:", err);
-      handleErrorResponse(err, res, "card");
+      console.log("catch erro");
+      console.log(err.statusCode);
+      console.log(err);
+      console.log("indo para o next");
+
+      next(err);
     });
 };
 
@@ -124,7 +152,7 @@ export const deleteCard = (req, res) => {
 };
 */
 
-export const likeCard = (req, res) => {
+export const likeCard = (req, res, next) => {
   console.log("este aqui");
   console.log(req.params);
 
@@ -134,16 +162,25 @@ export const likeCard = (req, res) => {
       { $addToSet: { likes: req.user._id } },
       { new: true }
     )
-    .orFail()
+    .orFail(() => {
+      const error = new Error("Esse usuário não existe");
+      error.statusCode = 404;
+      throw error;
+    })
     .then((cardData) => {
       res.status(200).json(cardData);
     })
     .catch((err) => {
-      handleErrorResponse(err, res, "card");
+      console.log("catch erro");
+      console.log(err.statusCode);
+      console.log(err);
+      console.log("indo para o next");
+
+      next(err);
     });
 };
 
-export const dislikeCard = (req, res) => {
+export const dislikeCard = (req, res, next) => {
   console.log("este aqui dislikecard");
   console.log(req.params);
 
@@ -153,11 +190,20 @@ export const dislikeCard = (req, res) => {
       { $pull: { likes: req.user._id } },
       { new: true }
     )
-    .orFail()
+    .orFail(() => {
+      const error = new Error("Esse usuário não existe");
+      error.statusCode = 404;
+      throw error;
+    })
     .then((cardData) => {
       res.status(200).json(cardData);
     })
     .catch((err) => {
-      handleErrorResponse(err, res, "card");
+      console.log("catch erro");
+      console.log(err.statusCode);
+      console.log(err);
+      console.log("indo para o next");
+
+      next(err);
     });
 };

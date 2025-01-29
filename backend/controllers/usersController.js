@@ -2,17 +2,32 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import user from "../models/user.js";
+///import { error } from "winston";
 
-import { handleErrorResponse } from "../utils/errorHandler.js";
+//import pkg from 'winston';
+//const { error } = pkg;
 
-export const listAllUsers = (req, res) => {
+///import { handleErrorResponse } from "../utils/errorHandler.js";
+
+export const listAllUsers = (req, res, next) => {
   user
     .find()
     .then((users) => {
+      if (!users) {
+        const error = new Error("Ocorreu um erro no servidor");
+        error.statusCode = 500;
+        throw error;
+      }
+
       res.status(200).json(users);
     })
     .catch((err) => {
-      handleErrorResponse(err, res, "user");
+      console.log("catch erro");
+      console.log(err.statusCode);
+      console.log(err);
+      console.log("indo para o next");
+
+      next(err);
     });
 };
 
@@ -50,7 +65,15 @@ export const getUserById = (req, res, next) => {
       throw error;
     })
     .then((user) => res.send({ data: user }))
-    .catch(next);
+    .catch((err) => {
+      console.log("catch erro");
+      console.log(err.statusCode);
+      console.log(err);
+      console.log("indo para o next");
+
+      next(err);
+    });
+  //  .catch(next);
 };
 
 /*
@@ -99,7 +122,10 @@ export const createUser = (req, res, next) => {
     .findOne({ email })
     .then((existingUser) => {
       if (existingUser) {
-        return res.status(400).json({ error: "Este email já está registrado" });
+        //return res.status(400).json({ error: "Este email já está registrado" });
+        const error = new Error("Este email já está registrado");
+        error.statusCode = 400;
+        throw error;
       }
 
       // Gerar salt e hash da senha
@@ -121,7 +147,14 @@ export const createUser = (req, res, next) => {
       console.log("saindo  do create_use");
       res.status(201).json(newUser);
     })
-    .catch(next);
+    .catch((err) => {
+      console.log("catch erro");
+      console.log(err.statusCode);
+      console.log(err);
+      console.log("indo para o next");
+
+      next(err);
+    });
 };
 
 /*    como era antes
@@ -145,7 +178,7 @@ export const updateUserProfile = (req, res) => {
 };
 */
 
-export const updateUserProfile = (req, res) => {
+export const updateUserProfile = (req, res, next) => {
   const { name, about } = req.body;
 
   user
@@ -161,7 +194,12 @@ export const updateUserProfile = (req, res) => {
     })
     .then((user) => res.send({ data: user }))
     .catch((err) => {
-      handleErrorResponse(err, res, "user");
+      console.log("catch erro");
+      console.log(err.statusCode);
+      console.log(err);
+      console.log("indo para o next");
+
+      next(err);
     });
 };
 
@@ -185,8 +223,15 @@ export const updateUserAvatar = (req, res) => {
 };
 */
 
-export const updateUserAvatar = (req, res) => {
+export const updateUserAvatar = (req, res, next) => {
   const { avatar } = req.body;
+  //console.log("avatar._id", avatar._id);   undefined
+  //console.log("body._id", req.body._id);   não funciona
+  console.log("user._id", req.user._id); ///sim funciona
+
+  ///////req.user._id = "6786f6275c5742d3d91e88f9";
+
+  console.log("novo user._id", req.user._id); ///sim funciona
 
   user
     .findByIdAndUpdate(
@@ -195,13 +240,18 @@ export const updateUserAvatar = (req, res) => {
       { new: true, runValidators: true }
     )
     .orFail(() => {
-      const error = new Error("Esse usuário não existe");
+      const error = new Error("Esse usuário não existeeeeeee");
       error.statusCode = 404;
       throw error;
     })
     .then((user) => res.send({ data: user }))
     .catch((err) => {
-      handleErrorResponse(err, res, "user");
+      console.log("catch erro");
+      console.log(err.statusCode);
+      console.log(err);
+      console.log("indo para o next");
+
+      next(err);
     });
 };
 
@@ -247,6 +297,11 @@ export const login = async (req, res, next) => {
 
     return res.status(200).json({ token });
   } catch (err) {
+    console.log("catch erro");
+    console.log(err.statusCode);
+    console.log(err);
+    console.log("indo para o next");
+
     next(err);
   }
 };

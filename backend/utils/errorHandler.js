@@ -1,3 +1,4 @@
+/*
 const errorMap = {
   CastError: {
     status: 400,
@@ -30,6 +31,7 @@ export const handleErrorResponse = (err, res, entity = "Recurso") => {
 
   res.status(errorConfig.status).json({ message, error: err.message });
 };
+*/
 
 export const urlRegex =
   /^(https?:\/\/)(www\.)?([a-zA-Z0-9\-._~:/?%#[\]@!$&'()*+,;=]+)\/?$/;
