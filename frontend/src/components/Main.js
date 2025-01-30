@@ -20,8 +20,6 @@ export default function Main({
   onCardLike,
   onCardDelete,
 }) {
-  //console.log(cards);
-
   const currentUser = useContext(CurrentUserContext);
   if (!currentUser) return null;
 

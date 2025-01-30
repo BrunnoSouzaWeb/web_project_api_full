@@ -1,4 +1,3 @@
-///const BASE_URL = "https://se-register-api.en.tripleten-services.com/v1";
 const BASE_URL = "http://localhost:3000";
 
 export const register = async (email, password) => {
@@ -26,9 +25,6 @@ export const register = async (email, password) => {
 };
 
 export const authorize = async (email, password) => {
-  //console.log("dentro do autorize frontend auth");
-  //console.log(email);
-  //console.log(password);
   try {
     const response = await fetch(`${BASE_URL}/signin`, {
       method: "POST",
@@ -48,10 +44,7 @@ export const authorize = async (email, password) => {
 
     const { token } = await response.json();
 
-    //console.log("dentro222 do autorize frontend auth");
-    //console.log({ token, email });
-
-    return { token, email }; // Retorna token e email
+    return { token, email };
   } catch (error) {
     console.error("Authorization error:", error);
     throw error;

@@ -35,12 +35,7 @@ function App() {
     localStorage.getItem("userEmail") || ""
   );
 
-  console.log("dentro do app frontend");
-
   const [token, setToken] = useState(localStorage.getItem("jwt") || ""); // NOVO: Estado para armazenar o token
-  //// console.log("token", setToken);
-  ///const settoken = "1f012d49-8fd6-43fa-aeaf-50158ed3cf4a";
-  console.log("Token atual:", token);
 
   const onEditProfileClick = () => {
     setIsEditProfilePopupOpen(true);
@@ -54,13 +49,10 @@ function App() {
     api
       .updateEditPerfil(name, about)
       .then((updatedUserData) => {
-        console.log("checando", updatedUserData);
         setCurrentUser(updatedUserData);
         closeAllPopups();
       })
-      .catch((err) => {
-        console.error(`Erro ao atualizar o perfil: ${err}`);
-      });
+      .catch((err) => {});
   }
 
   const handleUpdateAvatar = async ({ avatar }) => {
@@ -96,21 +88,6 @@ function App() {
     setSelectedCard(null);
   };
 
-  /*
-  
-  useEffect(() => {
-    console.log("primeiro api getuserifo");
-    api
-      .getUserInfo()
-      .then((ApiUserInfo) => {
-        setCurrentUser(ApiUserInfo);
-      })
-      .catch((err) => {
-        console.log("Erro ao carregar dados do usuário: ", err);
-      });
-  }, []);
-  */
-
   useEffect(() => {
     const token = localStorage.getItem("jwt");
     if (token) {
@@ -121,7 +98,6 @@ function App() {
           setUserEmail(user.email);
           setCurrentUser(user);
 
-          console.log("executou api getuserifo");
           api
             .getUserInfo()
             .then(setCurrentUser(user))
@@ -129,11 +105,9 @@ function App() {
               console.log("Erro ao carregar dados do usuário: ", err);
             });
 
-          console.log("executou cards");
           api
             .getInitialCards()
             .then((data) => {
-              console.log("data", data);
               setCards(data);
             })
             .catch((err) =>
@@ -147,46 +121,12 @@ function App() {
     } else {
       setLoggedIn(false);
     }
-  }, [token]); // Atualiza quando o token muda
-
-  /*
-
-  useEffect(() => {
-    const token = localStorage.getItem("jwt");
-    if (token) {
-      auth
-        .checkToken(token)
-        .then((user) => {
-          setLoggedIn(true);
-          setUserEmail(user.email);
-          setCurrentUser(user);
-
-          console.log("executou cards");
-          api
-            .getInitialCards()
-            .then((data) => {
-              console.log("data", data);
-              setCards(data);
-            })
-            .catch((err) =>
-              console.log("Erro ao obter dados dos cartões :", err)
-            );
-        })
-        .catch((error) => {
-          console.error("Erro ao verificar token:", error);
-          setLoggedIn(false);
-        });
-    } else {
-      setLoggedIn(false);
-    }
-  }, [token]); // Atualiza quando o token muda
-  */
+  }, [token]);
 
   const handleLogin = (email, jwt) => {
-    console.log("dentro do handlelogin frontend app", jwt);
     setLoggedIn(true);
     setUserEmail(email);
-    setToken(jwt); // Atualiza o estado do token
+    setToken(jwt);
     localStorage.setItem("jwt", jwt);
     localStorage.setItem("loggedIn", "true");
     localStorage.setItem("userEmail", email);
@@ -195,26 +135,14 @@ function App() {
   const handleLogout = () => {
     setLoggedIn(false);
     setUserEmail("");
-    setToken(""); // Limpa o token
+    setToken("");
     localStorage.removeItem("jwt");
     localStorage.removeItem("loggedIn");
     localStorage.removeItem("userEmail");
   };
 
   async function handleCardLike(card) {
-    console.log("dentro do handleCardLike");
-    console.log("currentUser._id", currentUser._id);
-    console.log("card", card);
-    console.log("card.owner", card.owner);
-
-    console.log("cartão idddd", card._id);
-    console.log("cartão likeeeee", card.likes);
-
-    /////const isLiked = card.likes.some((user) => user._id === currentUser._id);
-
     const isLiked = card.likes.some((user) => user === currentUser._id);
-
-    console.log("isliked", isLiked);
 
     await api
       .changeLikeCardStatus(card._id, !isLiked)

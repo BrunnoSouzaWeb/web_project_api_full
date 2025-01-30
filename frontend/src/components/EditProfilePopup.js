@@ -19,11 +19,6 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
 
   const currentUser = useContext(CurrentUserContext);
 
-  //React.useEffect(() => {
-  //  setName(currentUser.name);
-  //  setDescription(currentUser.about);
-  //}, [currentUser]);
-
   React.useEffect(() => {
     if (
       name?.length >= 2 &&
