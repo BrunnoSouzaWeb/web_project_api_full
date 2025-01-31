@@ -121,7 +121,7 @@ export const login = async (req, res, next) => {
 
     const matched = await bcrypt.compare(password, userLogin.password);
     if (!matched) {
-      const error = new Error("E-mail ou senha inco");
+      const error = new Error("E-mail ou senha incorreto");
       error.statusCode = 401;
       throw error;
     }

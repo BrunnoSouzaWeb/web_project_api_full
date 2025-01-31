@@ -19,7 +19,7 @@
     ],
 
     "guard-for-in": "off", // Desativa a exigência de verificação no corpo do for..in
-    "no-unused-vars": ["error", { "argsIgnorePattern": "next" }]
+    "no-unused-vars": ["warn", { "argsIgnorePattern": "next" }]
   },
   "parserOptions": {
     "ecmaVersion": 2022,
