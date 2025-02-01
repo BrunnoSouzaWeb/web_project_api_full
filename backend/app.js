@@ -9,9 +9,8 @@ import { requestLogger, errorLogger } from "./middleware/logger.js";
 
 import cors from "cors";
 
-///require("dotenv").config();
-//import dotenv from 'dotenv';
-//dotenv.config();
+import dotenv from "dotenv";
+dotenv.config();
 
 const { port = 3000 } = process.env;
 const app = express();
@@ -27,9 +26,8 @@ app.options("*", cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect("mongodb://localhost:27017/aroundb", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+mongoose.connect(process.env.CONNECTION).then(() => {
+  console.log("Banco de dados conectado");
 });
 
 app.use(requestLogger);
