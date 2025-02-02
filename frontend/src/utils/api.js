@@ -168,8 +168,7 @@ class Api {
 }
 
 const api = new Api({
-  //baseUrl: "https://around.nomoreparties.co/v1/web-ptbr-cohort-12",
-  baseUrl: "http://localhost:3000",
+  baseUrl: "https://web-project-api-full-yhuw.onrender.com",
   headers: {
     "Content-Type": "application/json",
   },

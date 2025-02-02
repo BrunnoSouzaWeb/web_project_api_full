@@ -15,10 +15,6 @@ dotenv.config();
 const { port = 3000 } = process.env;
 const app = express();
 
-//console.log(process.env.CONNECTION);
-//console.log(process.env.PORT);
-//console.log(process.env.TESTE_AMBIENTE);
-
 app.use(cors());
 app.options("*", cors());
 
