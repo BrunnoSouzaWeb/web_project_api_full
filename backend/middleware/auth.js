@@ -12,7 +12,7 @@ export const auth = (req, res, next) => {
   let payload;
 
   try {
-    payload = jwt.verify(token, "default_secret");
+    payload = jwt.verify(token, process.env.JWT_SECRET);
   } catch (e) {
     const err = new Error("Não autorizado");
     err.statusCode = 403;

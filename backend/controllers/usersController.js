@@ -128,11 +128,9 @@ export const login = async (req, res, next) => {
 
     const payload = { _id: userLogin._id };
 
-    const token = jwt.sign(
-      { _id: userLogin._id },
-      process.env.JWT_SECRET || "default_secret",
-      { expiresIn: "7d" }
-    );
+    const token = jwt.sign({ _id: userLogin._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
 
     const decoded = jwt.decode(token);
 
