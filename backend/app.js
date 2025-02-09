@@ -25,6 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 mongoose.connect(process.env.CONNECTION).then(() => {
   console.log("Banco de dados conectado");
   console.log(process.env.CONNECTION);
+  console.log(process.env.JWT_SECRET);
 });
 
 app.use(requestLogger);
