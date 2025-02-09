@@ -1,3 +1,0 @@
-"homepage": "/web_project_api_full"
-
-web-project-api-full-aui4.vercel.app
