@@ -12,7 +12,6 @@ import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 
-const { port = 3000 } = process.env;
 const app = express();
 
 app.use(cors());
@@ -21,6 +20,8 @@ app.options("*", cors());
 // Configuração do body-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+const port = process.env.PORT || 3000;
 
 mongoose.connect(process.env.CONNECTION).then(() => {
   console.log("Banco de dados conectado");
